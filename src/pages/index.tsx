@@ -1,115 +1,186 @@
+import Header from "../components/Header";
+import React, { useState } from "react";
 import Image from "next/image";
-import localFont from "next/font/local";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import Happy from "../../public/icons/happy (1).png";
+import Sad from "../../public/icons/sad-face.png";
+import Angry from "../../public/icons/angry.png";
+import Relaxed from "../../public/icons/dreamy.png";
+import Anxious from "../../public/icons/anxious.png";
 
 export default function Home() {
-  return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  type Mood = "Relaxed" | "Anxious" | "Happy" | "Angry" | "Sad";
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+  const MoodSelector: React.FC = () => {
+    const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
+    const [selectedScale, setSelectedScale] = useState<number | null>(null);
+
+    const moodContent: Record<Mood, { question: string; scale: number }> = {
+      Anxious: { question: "How anxious are you?", scale: 10 },
+      Relaxed: { question: "How relaxed are you?", scale: 10 },
+      Happy: { question: "How happy are you?", scale: 10 },
+      Sad: { question: "How sad are you?", scale: 10 },
+      Angry: { question: "How angry are you?", scale: 10 },
+    };
+
+    return (
+      <>
+        <Header />
+        <main className="relative mt-16">
+          {/* Background YouTube Video */}
+          <div className="absolute inset-0 z-0 overflow-hidden">
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/eTD0WWFIDAg?autoplay=1&loop=1&mute=1&playlist=eTD0WWFIDAg"
+              frameBorder="0"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              title="Background Video"
+            ></iframe>
+          </div>
+
+          {/* Content */}
+          <div className="relative z-10 flex flex-col items-center justify-center min-h-screen bg-black bg-opacity-50 space-y-8">
+            {/* Header Text */}
+            <h1 className="text-4xl font-bold text-white">
+              Hi! <br></br>How are you feeling today?
+            </h1>
+
+            {/* Icons with embedded buttons */}
+            <div className="flex flex-col items-center space-y-8">
+              <div className="flex space-x-14">
+                {/* Anxious Button */}
+                <div className="flex flex-col items-center">
+                  <button
+                    onClick={() => {
+                      setSelectedMood("Anxious");
+                      setSelectedScale(null); // Reset scale when changing mood
+                    }}
+                    className="focus:outline-none"
+                  >
+                    <Image
+                      src={Anxious}
+                      alt="Relaxed Icon"
+                      className="w-12 h-12"
+                    />
+                  </button>
+                  <span className="mt-2 text-white text-sm">Anxious</span>
+                </div>
+
+                {/* Relaxed Button */}
+                <div className="flex flex-col items-center">
+                  <button
+                    onClick={() => {
+                      setSelectedMood("Relaxed");
+                      setSelectedScale(null); // Reset scale when changing mood
+                    }}
+                    className="focus:outline-none"
+                  >
+                    <Image
+                      src={Relaxed}
+                      alt="Anxious Icon"
+                      className="w-12 h-12"
+                    />
+                  </button>
+                  <span className="mt-2 text-white text-sm">Relaxed</span>
+                </div>
+
+                {/* Happy Button */}
+                <div className="flex flex-col items-center">
+                  <button
+                    onClick={() => {
+                      setSelectedMood("Happy");
+                      setSelectedScale(null); // Reset scale when changing mood
+                    }}
+                    className="focus:outline-none"
+                  >
+                    <Image src={Happy} alt="Happy Icon" className="w-12 h-12" />
+                  </button>
+                  <span className="mt-2 text-white text-sm">Happy</span>
+                </div>
+
+                {/* Sad Button */}
+                <div className="flex flex-col items-center">
+                  <button
+                    onClick={() => {
+                      setSelectedMood("Sad");
+                      setSelectedScale(null); // Reset scale when changing mood
+                    }}
+                    className="focus:outline-none"
+                  >
+                    <Image src={Sad} alt="Angry Icon" className="w-12 h-12" />
+                  </button>
+                  <span className="mt-2 text-white text-sm">Sad</span>
+                </div>
+
+                {/* Angry Button */}
+                <div className="flex flex-col items-center">
+                  <button
+                    onClick={() => {
+                      setSelectedMood("Angry");
+                      setSelectedScale(null); // Reset scale when changing mood
+                    }}
+                    className="focus:outline-none"
+                  >
+                    <Image src={Angry} alt="Sad Icon" className="w-12 h-12" />
+                  </button>
+                  <span className="mt-2 text-white text-sm">Anxious</span>
+                </div>
+              </div>
+
+              {/* Mood Scale Section */}
+              {selectedMood && (
+                <div className="flex flex-col items-center space-y-4 mt-8">
+                  <h2 className="text-xl font-bold text-white">
+                    {moodContent[selectedMood].question}
+                  </h2>
+                  <div className="flex space-x-2">
+                    {Array.from(
+                      { length: moodContent[selectedMood].scale },
+                      (_, i) => (
+                        <button
+                          key={i}
+                          className={`w-8 h-8 text-white border border-white rounded-full ${
+                            selectedScale === i + 1
+                              ? "bg-blue-500"
+                              : "bg-transparent"
+                          }`}
+                          onClick={() => setSelectedScale(i + 1)}
+                        >
+                          {i + 1}
+                        </button>
+                      )
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Input section for paragraph text */}
+            <div className="flex flex-col items-center w-full max-w-md">
+              <h2 className="text-xl font-semibold text-white mb-4">
+                Do you need to describe how you're feeling in detail?
+              </h2>
+
+              {/* Text Input Area */}
+              <textarea
+                className="w-full p-4 text-black rounded-lg"
+                rows={4}
+                placeholder="Type here..."
+              ></textarea>
+
+              {/* Enter Button */}
+              <button
+                className="mt-4 bg-purple-800 text-white px-6 py-2 rounded-lg hover:bg-purple-400 focus:outline-none"
+                onClick={() => alert("Details submitted!")}
+              >
+                Enter
+              </button>
+            </div>
+          </div>
+        </main>
+      </>
+    );
+  };
+
+  return <MoodSelector />;
 }
