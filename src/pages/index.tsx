@@ -1,11 +1,12 @@
 import Header from "../components/Header";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Happy from "../../public/icons/happy (1).png";
 import Sad from "../../public/icons/sad-face.png";
 import Angry from "../../public/icons/angry.png";
 import Relaxed from "../../public/icons/dreamy.png";
 import Anxious from "../../public/icons/anxious.png";
+import { bgClasses, bgGifs } from "../../constants";
 
 export default function Home() {
   type Mood = "Relaxed" | "Anxious" | "Happy" | "Angry" | "Sad";
@@ -13,6 +14,7 @@ export default function Home() {
   const MoodSelector: React.FC = () => {
     const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
     const [selectedScale, setSelectedScale] = useState<number | null>(null);
+    const [bg, setBg] = useState<string>("bg-gif1");
 
     const moodContent: Record<Mood, { question: string; scale: number }> = {
       Anxious: { question: "How anxious are you?", scale: 10 },
@@ -21,25 +23,35 @@ export default function Home() {
       Sad: { question: "How sad are you?", scale: 10 },
       Angry: { question: "How angry are you?", scale: 10 },
     };
+    useEffect(() => {
+      // Initialize an index for tracking the current item
+      let currentIndex = 0;
+
+      // Set up an interval to update the view state
+      const interval = setInterval(() => {
+        // Set view to the current item's view property
+        setBg(bgClasses[currentIndex]);
+
+        // Update currentIndex to the next item, looping back to 0 if at the end
+        currentIndex = (currentIndex + 1) % bgClasses.length;
+      }, 4000); // 2000 ms = 2 seconds
+
+      // Cleanup the interval when the component unmounts or updates
+      return () => clearInterval(interval);
+    }, []); // Empty de
 
     return (
       <>
-        <Header />
-        <main className="relative mt-16">
-          {/* Background YouTube Video */}
-          <div className="absolute inset-0 z-0 overflow-hidden">
-            <iframe
-              className="w-full h-full"
-              src="https://www.youtube.com/embed/eTD0WWFIDAg?autoplay=1&loop=1&mute=1&playlist=eTD0WWFIDAg"
-              frameBorder="0"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-              title="Background Video"
-            ></iframe>
-          </div>
-
+        {/* <Header /> */}
+        <main className="relative h-screen w-screen">
           {/* Content */}
-          <div className="relative z-10 flex flex-col items-center justify-center min-h-screen bg-black bg-opacity-50 space-y-8">
+          <div
+            className={` ${bg} relative z-10 flex flex-col gap-8 items-center justify-center min-h-screen `}
+            // style={{
+            //   background: `url(${bg}) no-repeat center center`,
+            //   backgroundSize: "cover",
+            // }}
+          >
             {/* Header Text */}
             <h1 className="text-4xl font-bold text-white">
               Hi! <br></br>How are you feeling today?

@@ -25,3 +25,24 @@ body {
     text-wrap: balance;
   }
 }
+
+.bg-gif1 {
+  background: url("/gifs/bgGif1.gif") no-repeat center center;
+  background-size: cover;
+}
+.bg-gif2 {
+  background: url("/gifs/bgGif2.gif") no-repeat center center;
+  background-size: cover;
+}
+.bg-gif3 {
+  background: url("/gifs/bgGif3.gif") no-repeat center center;
+  background-size: cover;
+}
+.bg-gif4 {
+  background: url("/gifs/bgGif4.gif") no-repeat center center;
+  background-size: cover;
+}
+.bg-gif5 {
+  background: url("/gifs/bgGif5.gif") no-repeat center center;
+  background-size: cover;
+}
