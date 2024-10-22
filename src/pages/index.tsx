@@ -43,23 +43,25 @@ export default function Home() {
     return (
       <>
         {/* <Header /> */}
-        <main className="relative h-screen w-screen">
+        <main
+          className={` ${bg} relative z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040] h-screen`}
+        >
           {/* Content */}
           <div
-            className={` ${bg} relative z-10 flex flex-col gap-8 items-center justify-center min-h-screen `}
+            className={` p-5 rounded-xl relative z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040] `}
             // style={{
             //   background: `url(${bg}) no-repeat center center`,
             //   backgroundSize: "cover",
             // }}
           >
             {/* Header Text */}
-            <h1 className="text-4xl font-bold text-white">
+            <h1 className="sm:text-4xl text-xl font-bold text-white">
               Hi! <br></br>How are you feeling today?
             </h1>
 
             {/* Icons with embedded buttons */}
             <div className="flex flex-col items-center space-y-8">
-              <div className="flex space-x-14">
+              <div className="flex flex-wrap justify-center flex-row gap-8">
                 {/* Anxious Button */}
                 <div className="flex flex-col items-center">
                   <button
@@ -145,7 +147,7 @@ export default function Home() {
                   <h2 className="text-xl font-bold text-white">
                     {moodContent[selectedMood].question}
                   </h2>
-                  <div className="flex space-x-2">
+                  <div className="flex flex-wrap justify-center gap-5 ">
                     {Array.from(
                       { length: moodContent[selectedMood].scale },
                       (_, i) => (
