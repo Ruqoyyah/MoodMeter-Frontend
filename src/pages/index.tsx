@@ -1,12 +1,14 @@
 import Header from "../components/Header";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Happy from "../../public/icons/happy (1).png";
-import Sad from "../../public/icons/sad-face.png";
-import Angry from "../../public/icons/angry.png";
-import Relaxed from "../../public/icons/dreamy.png";
-import Anxious from "../../public/icons/anxious.png";
+import backgroundImage from "../../public/icons/background_summer.jpg";
+import Happy from "../../public/gifs/happy.gif";
+import Sad from "../../public/gifs/sad.gif";
+import Angry from "../../public/gifs/angry.gif";
+import Relaxed from "../../public/gifs/relaxed.gif";
+import Anxious from "../../public/gifs/anxious.gif";
 import { bgClasses, bgGifs } from "../../constants";
+import { motion } from "framer-motion";
 
 export default function Home() {
   type Mood = "Relaxed" | "Anxious" | "Happy" | "Angry" | "Sad";
@@ -14,7 +16,7 @@ export default function Home() {
   const MoodSelector: React.FC = () => {
     const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
     const [selectedScale, setSelectedScale] = useState<number | null>(null);
-    const [bg, setBg] = useState<string>("bg-gif1");
+    // const [bg, setBg] = useState<string>("bg-gif1");
 
     const moodContent: Record<Mood, { question: string; scale: number }> = {
       Anxious: { question: "How anxious are you?", scale: 10 },
@@ -30,7 +32,7 @@ export default function Home() {
       // Set up an interval to update the view state
       const interval = setInterval(() => {
         // Set view to the current item's view property
-        setBg(bgClasses[currentIndex]);
+        // setBg(bgClasses[currentIndex]);
 
         // Update currentIndex to the next item, looping back to 0 if at the end
         currentIndex = (currentIndex + 1) % bgClasses.length;
@@ -44,8 +46,18 @@ export default function Home() {
       <>
         {/* <Header /> */}
         <main
-          className={` ${bg} relative z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040] h-screen`}
+          className={`relative z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040] h-screen`}
         >
+          {/* Background image */}
+          <div className="absolute inset-0 -z-10">
+            <Image
+              src={backgroundImage}
+              alt="Background"
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+            />
+          </div>
           {/* Content */}
           <div
             className={` p-5 rounded-xl relative z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040] `}
@@ -137,7 +149,7 @@ export default function Home() {
                   >
                     <Image src={Angry} alt="Sad Icon" className="w-12 h-12" />
                   </button>
-                  <span className="mt-2 text-white text-sm">Anxious</span>
+                  <span className="mt-2 text-white text-sm">Angry</span>
                 </div>
               </div>
 
