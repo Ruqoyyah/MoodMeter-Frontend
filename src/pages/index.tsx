@@ -197,7 +197,7 @@ export default function Home() {
 
               {/* Enter Button */}
               <button
-                className="mt-4 bg-purple-800 text-white px-6 py-2 rounded-lg hover:bg-purple-400 focus:outline-none"
+                className="mt-4 bg-cyan-300 text-white px-6 py-2 rounded-lg hover:bg-purple-100 focus:outline-none"
                 onClick={() => {
                   toast("Response Submitted");
                 }}
