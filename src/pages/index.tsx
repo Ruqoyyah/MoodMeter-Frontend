@@ -45,20 +45,9 @@ export default function Home() {
 
     return (
       <>
-        {/* <Header /> */}
         <main
-          className={`relative z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040] h-screen`}
+          className={`relative overflow-y-scroll bg-summer z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040] h-screen`}
         >
-          {/* Background image */}
-          <div className="absolute inset-0 -z-10">
-            <Image
-              src={backgroundImage}
-              alt="Background"
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
-            />
-          </div>
           {/* Content */}
           <div
             className={` p-5 rounded-xl relative z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040] `}
@@ -68,11 +57,10 @@ export default function Home() {
             // }}
           >
             {/* Header Text */}
-            <h6 className="font-zubajda sm:text-4xl text-xl font-bold text-white">
+            <p className="font-zubajda sm:text-4xl text-xl font-bold text-white">
               Hello, <br />
-              what is your cherry republic
-              <br /> mood today?
-            </h6>
+              what is your cherry republic mood today?
+            </p>
 
             {/* Icons with embedded buttons */}
             <div className="flex flex-col items-center space-y-8">
@@ -89,10 +77,10 @@ export default function Home() {
                     <Image
                       src={Anxious}
                       alt="Relaxed Icon"
-                      className="w-12 h-12"
+                      className="w-16 h-16"
                     />
                   </button>
-                  <span className="mt-2 text-white text-sm">Anxious</span>
+                  <span className="mt-2 text-white font-semibold">Anxious</span>
                 </div>
 
                 {/* Relaxed Button */}
@@ -107,10 +95,10 @@ export default function Home() {
                     <Image
                       src={Relaxed}
                       alt="Anxious Icon"
-                      className="w-12 h-12"
+                      className="w-16 h-16"
                     />
                   </button>
-                  <span className="mt-2 text-white text-sm">Relaxed</span>
+                  <span className="mt-2 text-white font-semibold">Relaxed</span>
                 </div>
 
                 {/* Happy Button */}
@@ -122,9 +110,9 @@ export default function Home() {
                     }}
                     className="focus:outline-none"
                   >
-                    <Image src={Happy} alt="Happy Icon" className="w-12 h-12" />
+                    <Image src={Happy} alt="Happy Icon" className="w-16 h-16" />
                   </button>
-                  <span className="mt-2 text-white text-sm">Happy</span>
+                  <span className="mt-2 text-white font-semibold">Happy</span>
                 </div>
 
                 {/* Sad Button */}
@@ -136,9 +124,9 @@ export default function Home() {
                     }}
                     className="focus:outline-none"
                   >
-                    <Image src={Sad} alt="Angry Icon" className="w-12 h-12" />
+                    <Image src={Sad} alt="Angry Icon" className="w-16 h-16" />
                   </button>
-                  <span className="mt-2 text-white text-sm">Sad</span>
+                  <span className="mt-2 text-white font-semibold">Sad</span>
                 </div>
 
                 {/* Angry Button */}
@@ -150,9 +138,9 @@ export default function Home() {
                     }}
                     className="focus:outline-none"
                   >
-                    <Image src={Angry} alt="Sad Icon" className="w-12 h-12" />
+                    <Image src={Angry} alt="Sad Icon" className="w-16 h-16" />
                   </button>
-                  <span className="mt-2 text-white text-sm">Angry</span>
+                  <span className="mt-2 text-white font-semibold">Angry</span>
                 </div>
               </div>
 

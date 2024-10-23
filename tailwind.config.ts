@@ -13,8 +13,8 @@ const config: Config = {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        'zubajda': 'Zubadja'
-      }
+        zubajda: "Zubajda",
+      },
     },
   },
   plugins: [],

@@ -28,7 +28,7 @@ body {
 
 @font-face {
   font-family: "Zubajda";
-  src: url("../../public/fonts/zubajda.ttf");
+  src: url("/fonts/zubajda.ttf");
   font-display: swap;
   font-style: normal;
   font-weight: normal;
@@ -54,4 +54,8 @@ body {
 .bg-gif5 {
   background: url("/gifs/bgGif5.gif") no-repeat center center;
   background-size: cover;
+}
+
+.bg-summer {
+  background: url("/icons/background_summer.jpg");
 }
