@@ -9,6 +9,7 @@ import Relaxed from "../../public/gifs/relaxed.gif";
 import Anxious from "../../public/gifs/anxious.gif";
 import { bgClasses, bgGifs } from "../../constants";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 export default function Home() {
   type Mood = "Relaxed" | "Anxious" | "Happy" | "Angry" | "Sad";
@@ -197,7 +198,9 @@ export default function Home() {
               {/* Enter Button */}
               <button
                 className="mt-4 bg-purple-800 text-white px-6 py-2 rounded-lg hover:bg-purple-400 focus:outline-none"
-                onClick={() => alert("Details submitted!")}
+                onClick={() => {
+                  toast("Response Submitted");
+                }}
               >
                 Enter
               </button>
