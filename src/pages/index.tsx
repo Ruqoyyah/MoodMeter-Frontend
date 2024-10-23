@@ -68,9 +68,11 @@ export default function Home() {
             // }}
           >
             {/* Header Text */}
-            <h1 className="sm:text-4xl text-xl font-bold text-white">
-              Hi! <br></br>How are you feeling today?
-            </h1>
+            <h6 className="font-zubajda sm:text-4xl text-xl font-bold text-white">
+              Hello, <br />
+              what is your cherry republic
+              <br /> mood today?
+            </h6>
 
             {/* Icons with embedded buttons */}
             <div className="flex flex-col items-center space-y-8">

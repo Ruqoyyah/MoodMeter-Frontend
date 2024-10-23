@@ -26,6 +26,15 @@ body {
   }
 }
 
+@font-face {
+  font-family: "Zubajda";
+  src: url("../../public/fonts/zubajda.ttf");
+  font-display: swap;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+}
+
 .bg-gif1 {
   background: url("/gifs/bgGif1.gif") no-repeat center center;
   background-size: cover;
