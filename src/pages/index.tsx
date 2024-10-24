@@ -1,15 +1,13 @@
-import Header from "../components/Header";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import backgroundImage from "../../public/icons/background_summer.jpg";
 import Happy from "../../public/gifs/happy.gif";
 import Sad from "../../public/gifs/sad.gif";
 import Angry from "../../public/gifs/angry.gif";
 import Relaxed from "../../public/gifs/relaxed.gif";
 import Anxious from "../../public/gifs/anxious.gif";
-import { bgClasses, bgGifs } from "../../constants";
-import { motion } from "framer-motion";
+
 import { toast } from "react-toastify";
+import axios from "axios";
 
 export default function Home() {
   type Mood = "Relaxed" | "Anxious" | "Happy" | "Angry" | "Sad";
@@ -20,6 +18,26 @@ export default function Home() {
     const [showScale, setShowScale] = useState<boolean>(false);
     const [showTextBox, setShowTextBox] = useState<boolean>(false);
     const [inputText, setInputText] = useState<string>("");
+    const [ip, setIp] = useState<string>("");
+
+    const fetchIp = async () => {
+      axios
+        .get("https://ipapi.co/json/")
+        .then((response) => {
+          console.log(response);
+          setIp(response.data.ip);
+        })
+        .catch(() => {
+          // TODO: loader status: setIsGettingLocation(false);
+          console.log(
+            "the geolocation service is not supported in your browser"
+          );
+        });
+    };
+
+    useEffect(() => {
+      fetchIp();
+    }, []);
 
     const moodContent: Record<Mood, { question: string; scale: number }> = {
       Anxious: { question: "How anxious are you?", scale: 10 },
