@@ -17,7 +17,9 @@ export default function Home() {
   const MoodSelector: React.FC = () => {
     const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
     const [selectedScale, setSelectedScale] = useState<number | null>(null);
-    // const [bg, setBg] = useState<string>("bg-gif1");
+    const [showScale, setShowScale] = useState<boolean>(false);
+    const [showTextBox, setShowTextBox] = useState<boolean>(false);
+    const [inputText, setInputText] = useState<string>("");
 
     const moodContent: Record<Mood, { question: string; scale: number }> = {
       Anxious: { question: "How anxious are you?", scale: 10 },
@@ -26,22 +28,26 @@ export default function Home() {
       Sad: { question: "How sad are you?", scale: 10 },
       Angry: { question: "How angry are you?", scale: 10 },
     };
-    useEffect(() => {
-      // Initialize an index for tracking the current item
-      let currentIndex = 0;
 
-      // Set up an interval to update the view state
-      const interval = setInterval(() => {
-        // Set view to the current item's view property
-        // setBg(bgClasses[currentIndex]);
+    // Handle the display of the first toast notification
+    const handleMoodSelection = (mood: Mood) => {
+      setSelectedMood(mood);
+      toast("Response Submitted", {
+        onClose: () => setShowScale(true), // Show the mood scale when the toast closes
+        autoClose: 2000, // Optional: Adjust the duration of the toast
+      });
+    };
 
-        // Update currentIndex to the next item, looping back to 0 if at the end
-        currentIndex = (currentIndex + 1) % bgClasses.length;
-      }, 4000); // 2000 ms = 2 seconds
-
-      // Cleanup the interval when the component unmounts or updates
-      return () => clearInterval(interval);
-    }, []); // Empty de
+    // Handle the final submission of the text box
+    const handleFinalSubmit = () => {
+      toast("Your details have been submitted successfully!", {
+        onClose: () => {
+          // Refresh the page after the second toast ends
+          window.location.reload();
+        },
+        autoClose: 2000, // Optional: Adjust the duration of the toast
+      });
+    };
 
     return (
       <>
@@ -50,11 +56,7 @@ export default function Home() {
         >
           {/* Content */}
           <div
-            className={` p-5 rounded-xl relative z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040] `}
-            // style={{
-            //   background: `url(${bg}) no-repeat center center`,
-            //   backgroundSize: "cover",
-            // }}
+            className={`p-5 rounded-xl relative z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040]`}
           >
             {/* Header Text */}
             <p className="font-zubajda sm:text-4xl text-xl font-bold text-white">
@@ -68,15 +70,12 @@ export default function Home() {
                 {/* Anxious Button */}
                 <div className="flex flex-col items-center">
                   <button
-                    onClick={() => {
-                      setSelectedMood("Anxious");
-                      setSelectedScale(null); // Reset scale when changing mood
-                    }}
+                    onClick={() => handleMoodSelection("Anxious")}
                     className="focus:outline-none"
                   >
                     <Image
                       src={Anxious}
-                      alt="Relaxed Icon"
+                      alt="Anxious Icon"
                       className="w-16 h-16"
                     />
                   </button>
@@ -86,15 +85,12 @@ export default function Home() {
                 {/* Relaxed Button */}
                 <div className="flex flex-col items-center">
                   <button
-                    onClick={() => {
-                      setSelectedMood("Relaxed");
-                      setSelectedScale(null); // Reset scale when changing mood
-                    }}
+                    onClick={() => handleMoodSelection("Relaxed")}
                     className="focus:outline-none"
                   >
                     <Image
                       src={Relaxed}
-                      alt="Anxious Icon"
+                      alt="Relaxed Icon"
                       className="w-16 h-16"
                     />
                   </button>
@@ -104,10 +100,7 @@ export default function Home() {
                 {/* Happy Button */}
                 <div className="flex flex-col items-center">
                   <button
-                    onClick={() => {
-                      setSelectedMood("Happy");
-                      setSelectedScale(null); // Reset scale when changing mood
-                    }}
+                    onClick={() => handleMoodSelection("Happy")}
                     className="focus:outline-none"
                   >
                     <Image src={Happy} alt="Happy Icon" className="w-16 h-16" />
@@ -118,13 +111,10 @@ export default function Home() {
                 {/* Sad Button */}
                 <div className="flex flex-col items-center">
                   <button
-                    onClick={() => {
-                      setSelectedMood("Sad");
-                      setSelectedScale(null); // Reset scale when changing mood
-                    }}
+                    onClick={() => handleMoodSelection("Sad")}
                     className="focus:outline-none"
                   >
-                    <Image src={Sad} alt="Angry Icon" className="w-16 h-16" />
+                    <Image src={Sad} alt="Sad Icon" className="w-16 h-16" />
                   </button>
                   <span className="mt-2 text-white font-semibold">Sad</span>
                 </div>
@@ -132,25 +122,22 @@ export default function Home() {
                 {/* Angry Button */}
                 <div className="flex flex-col items-center">
                   <button
-                    onClick={() => {
-                      setSelectedMood("Angry");
-                      setSelectedScale(null); // Reset scale when changing mood
-                    }}
+                    onClick={() => handleMoodSelection("Angry")}
                     className="focus:outline-none"
                   >
-                    <Image src={Angry} alt="Sad Icon" className="w-16 h-16" />
+                    <Image src={Angry} alt="Angry Icon" className="w-16 h-16" />
                   </button>
                   <span className="mt-2 text-white font-semibold">Angry</span>
                 </div>
               </div>
 
               {/* Mood Scale Section */}
-              {selectedMood && (
+              {showScale && selectedMood && (
                 <div className="flex flex-col items-center space-y-4 mt-8">
                   <h2 className="text-xl font-bold text-white">
                     {moodContent[selectedMood].question}
                   </h2>
-                  <div className="flex flex-wrap justify-center gap-5 ">
+                  <div className="flex flex-wrap justify-center gap-5">
                     {Array.from(
                       { length: moodContent[selectedMood].scale },
                       (_, i) => (
@@ -161,7 +148,10 @@ export default function Home() {
                               ? "bg-blue-500"
                               : "bg-transparent"
                           }`}
-                          onClick={() => setSelectedScale(i + 1)}
+                          onClick={() => {
+                            setSelectedScale(i + 1);
+                            setShowTextBox(true); // Show the text box after selecting scale
+                          }}
                         >
                           {i + 1}
                         </button>
@@ -170,30 +160,32 @@ export default function Home() {
                   </div>
                 </div>
               )}
-            </div>
 
-            {/* Input section for paragraph text */}
-            <div className="flex flex-col items-center w-full max-w-md">
-              <h2 className="text-xl font-semibold text-white mb-4">
-                Do you need to describe how you're feeling in detail?
-              </h2>
+              {/* Input section for paragraph text */}
+              {showTextBox && (
+                <div className="flex flex-col items-center w-full max-w-md">
+                  <h2 className="text-xl font-semibold text-white mb-4">
+                    Do you need to describe how you're feeling in detail?
+                  </h2>
 
-              {/* Text Input Area */}
-              <textarea
-                className="w-full p-4 text-black rounded-lg"
-                rows={4}
-                placeholder="Type here..."
-              ></textarea>
+                  {/* Text Input Area */}
+                  <textarea
+                    className="w-full p-4 text-black rounded-lg"
+                    rows={4}
+                    placeholder="Type here..."
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                  ></textarea>
 
-              {/* Enter Button */}
-              <button
-                className="mt-4 bg-cyan-300 text-white px-6 py-2 rounded-lg hover:bg-purple-100 focus:outline-none"
-                onClick={() => {
-                  toast("Response Submitted");
-                }}
-              >
-                Enter
-              </button>
+                  {/* Enter Button */}
+                  <button
+                    className="mt-4 bg-cyan-300 text-white px-6 py-2 rounded-lg hover:bg-purple-100 focus:outline-none"
+                    onClick={handleFinalSubmit}
+                  >
+                    Enter
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </main>
