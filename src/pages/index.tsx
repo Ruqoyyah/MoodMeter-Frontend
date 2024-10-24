@@ -32,7 +32,7 @@ export default function Home() {
     // Handle the display of the first toast notification
     const handleMoodSelection = (mood: Mood) => {
       setSelectedMood(mood);
-      toast("Response Submitted", {
+      toast("Thank you for logging your emotions", {
         onClose: () => setShowScale(true), // Show the mood scale when the toast closes
         autoClose: 2000, // Optional: Adjust the duration of the toast
       });
@@ -132,7 +132,7 @@ export default function Home() {
               </div>
 
               {/* Mood Scale Section */}
-              {showScale && selectedMood && (
+              {/* {showScale && selectedMood && (
                 <div className="flex flex-col items-center space-y-4 mt-8">
                   <h2 className="text-xl font-bold text-white">
                     {moodContent[selectedMood].question}
@@ -159,7 +159,7 @@ export default function Home() {
                     )}
                   </div>
                 </div>
-              )}
+              )} */}
 
               {/* Input section for paragraph text */}
               {showTextBox && (
