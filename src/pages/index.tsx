@@ -52,10 +52,7 @@ export default function Home() {
     // Handle the display of the first toast notification
     const handleMoodSelection = (mood: Mood) => {
       setSelectedMood(mood);
-      toast("Thank you for logging your emotions", {
-        onClose: () => setShowScale(true), // Show the mood scale when the toast closes
-        autoClose: 2000, // Optional: Adjust the duration of the toast
-      });
+
       router.push("/success");
     };
 
@@ -89,64 +86,64 @@ export default function Home() {
             <div className="flex flex-col items-center space-y-8">
               <div className="flex flex-wrap justify-center flex-row gap-8">
                 {/* Anxious Button */}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center ">
                   <button
                     onClick={() => handleMoodSelection("Anxious")}
-                    className="focus:outline-none"
+                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
                   >
                     <Image
                       src={Anxious}
                       alt="Anxious Icon"
-                      className="w-16 h-16"
+                      className="w-32 h-32"
                     />
                   </button>
                   <span className="mt-2 text-white font-semibold">Anxious</span>
                 </div>
 
                 {/* Relaxed Button */}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center ">
                   <button
                     onClick={() => handleMoodSelection("Relaxed")}
-                    className="focus:outline-none"
+                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
                   >
                     <Image
                       src={Relaxed}
                       alt="Relaxed Icon"
-                      className="w-16 h-16"
+                      className="w-32 h-32"
                     />
                   </button>
                   <span className="mt-2 text-white font-semibold">Relaxed</span>
                 </div>
 
                 {/* Happy Button */}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center ">
                   <button
                     onClick={() => handleMoodSelection("Happy")}
-                    className="focus:outline-none"
+                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
                   >
-                    <Image src={Happy} alt="Happy Icon" className="w-16 h-16" />
+                    <Image src={Happy} alt="Happy Icon" className="w-32 h-32" />
                   </button>
                   <span className="mt-2 text-white font-semibold">Happy</span>
                 </div>
 
                 {/* Sad Button */}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center ">
                   <button
                     onClick={() => handleMoodSelection("Sad")}
-                    className="focus:outline-none"
+                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
                   >
-                    <Image src={Sad} alt="Sad Icon" className="w-16 h-16" />
+                    <Image src={Sad} alt="Sad Icon" className="w-32 h-32" />
                   </button>
                   <span className="mt-2 text-white font-semibold">Sad</span>
                 </div>
 
                 {/* Angry Button */}
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center ">
                   <button
                     onClick={() => handleMoodSelection("Angry")}
-                    className="focus:outline-none"
+                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
                   >
-                    <Image src={Angry} alt="Angry Icon" className="w-16 h-16" />
+                    <Image src={Angry} alt="Angry Icon" className="w-32 h-32" />
                   </button>
                   <span className="mt-2 text-white font-semibold">Angry</span>
                 </div>
