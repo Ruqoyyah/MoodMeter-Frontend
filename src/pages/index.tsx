@@ -8,6 +8,7 @@ import Anxious from "../../public/gifs/anxious.gif";
 
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Home() {
   type Mood = "Relaxed" | "Anxious" | "Happy" | "Angry" | "Sad";
@@ -20,6 +21,7 @@ export default function Home() {
     const [inputText, setInputText] = useState<string>("");
     const [ip, setIp] = useState<string>("");
 
+    const router = useRouter();
     const fetchIp = async () => {
       axios
         .get("https://ipapi.co/json/")
@@ -54,6 +56,7 @@ export default function Home() {
         onClose: () => setShowScale(true), // Show the mood scale when the toast closes
         autoClose: 2000, // Optional: Adjust the duration of the toast
       });
+      router.push("/success");
     };
 
     // Handle the final submission of the text box
