@@ -50,10 +50,16 @@ export default function Home() {
     };
 
     // Handle the display of the first toast notification
-    const handleMoodSelection = (mood: Mood) => {
+    const handleMoodSelection = async (mood: Mood) => {
       setSelectedMood(mood);
 
-      router.push("/success");
+      try {
+        await axios.post("http://localhost:8081/api/mood/create-mood", {
+          rating: mood,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     // Handle the final submission of the text box
