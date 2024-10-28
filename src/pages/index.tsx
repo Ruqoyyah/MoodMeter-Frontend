@@ -11,7 +11,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 export default function Home() {
-  type Mood = "Relaxed" | "Anxious" | "Happy" | "Angry" | "Sad";
+  type Mood = "RELAXED" | "ANXIOUS" | "HAPPY" | "ANGRY" | "SAD";
 
   const MoodSelector: React.FC = () => {
     const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
@@ -42,29 +42,30 @@ export default function Home() {
     }, []);
 
     const moodContent: Record<Mood, { question: string; scale: number }> = {
-      Anxious: { question: "How anxious are you?", scale: 10 },
-      Relaxed: { question: "How relaxed are you?", scale: 10 },
-      Happy: { question: "How happy are you?", scale: 10 },
-      Sad: { question: "How sad are you?", scale: 10 },
-      Angry: { question: "How angry are you?", scale: 10 },
+      ANXIOUS: { question: "How anxious are you?", scale: 10 },
+      RELAXED: { question: "How relaxed are you?", scale: 10 },
+      HAPPY: { question: "How happy are you?", scale: 10 },
+      SAD: { question: "How sad are you?", scale: 10 },
+      ANGRY: { question: "How angry are you?", scale: 10 },
     };
 
     // Handle the display of the first toast notification
-    const handleMoodSelection = (mood: Mood) => {
+    const handleMoodSelection = async (mood: Mood) => {
       setSelectedMood(mood);
+      setShowScale(true);
 
-      router.push("/success");
+      // try {
+      //   await axios.post("http://localhost:8081/api/mood/create-mood", {
+      //     rating: mood,
+      //   });
+      // } catch (error) {
+      //   console.log(error);
+      // }
     };
 
     // Handle the final submission of the text box
     const handleFinalSubmit = () => {
-      toast("Your details have been submitted successfully!", {
-        onClose: () => {
-          // Refresh the page after the second toast ends
-          window.location.reload();
-        },
-        autoClose: 2000, // Optional: Adjust the duration of the toast
-      });
+      router.push("/success");
     };
 
     return (
@@ -77,7 +78,7 @@ export default function Home() {
             className={`p-5 rounded-xl relative z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040]`}
           >
             {/* Header Text */}
-            <p className="font-zubajda sm:text-4xl text-xl font-bold text-white">
+            <p className="font-zubajda sm:text-[42px] text-xl font-bold text-white">
               Hello, <br />
               what is your cherry republic mood today?
             </p>
@@ -88,7 +89,7 @@ export default function Home() {
                 {/* Anxious Button */}
                 <div className="flex flex-col items-center ">
                   <button
-                    onClick={() => handleMoodSelection("Anxious")}
+                    onClick={() => handleMoodSelection("ANXIOUS")}
                     className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
                   >
                     <Image
@@ -103,7 +104,7 @@ export default function Home() {
                 {/* Relaxed Button */}
                 <div className="flex flex-col items-center ">
                   <button
-                    onClick={() => handleMoodSelection("Relaxed")}
+                    onClick={() => handleMoodSelection("RELAXED")}
                     className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
                   >
                     <Image
@@ -118,7 +119,7 @@ export default function Home() {
                 {/* Happy Button */}
                 <div className="flex flex-col items-center ">
                   <button
-                    onClick={() => handleMoodSelection("Happy")}
+                    onClick={() => handleMoodSelection("HAPPY")}
                     className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
                   >
                     <Image src={Happy} alt="Happy Icon" className="w-32 h-32" />
@@ -129,7 +130,7 @@ export default function Home() {
                 {/* Sad Button */}
                 <div className="flex flex-col items-center ">
                   <button
-                    onClick={() => handleMoodSelection("Sad")}
+                    onClick={() => handleMoodSelection("SAD")}
                     className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
                   >
                     <Image src={Sad} alt="Sad Icon" className="w-32 h-32" />
@@ -140,7 +141,7 @@ export default function Home() {
                 {/* Angry Button */}
                 <div className="flex flex-col items-center ">
                   <button
-                    onClick={() => handleMoodSelection("Angry")}
+                    onClick={() => handleMoodSelection("ANGRY")}
                     className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
                   >
                     <Image src={Angry} alt="Angry Icon" className="w-32 h-32" />
@@ -150,7 +151,7 @@ export default function Home() {
               </div>
 
               {/* Mood Scale Section */}
-              {/* {showScale && selectedMood && (
+              {showScale && selectedMood && (
                 <div className="flex flex-col items-center space-y-4 mt-8">
                   <h2 className="text-xl font-bold text-white">
                     {moodContent[selectedMood].question}
@@ -177,7 +178,7 @@ export default function Home() {
                     )}
                   </div>
                 </div>
-              )} */}
+              )}
 
               {/* Input section for paragraph text */}
               {showTextBox && (
@@ -196,14 +197,14 @@ export default function Home() {
                   ></textarea>
 
                   {/* Enter Button */}
-                  <button
-                    className="mt-4 bg-cyan-300 text-white px-6 py-2 rounded-lg hover:bg-purple-100 focus:outline-none"
-                    onClick={handleFinalSubmit}
-                  >
-                    Enter
-                  </button>
                 </div>
               )}
+              <button
+                className="mt-4 bg-cyan-300 text-white px-6 py-2 rounded-lg hover:bg-purple-100 focus:outline-none"
+                onClick={handleFinalSubmit}
+              >
+                Enter
+              </button>
             </div>
           </div>
         </main>
