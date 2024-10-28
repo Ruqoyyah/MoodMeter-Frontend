@@ -77,7 +77,7 @@ export default function Home() {
             className={`p-5 rounded-xl relative z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040]`}
           >
             {/* Header Text */}
-            <p className="font-zubajda sm:text-4xl text-xl font-bold text-white">
+            <p className="font-zubajda sm:text-[62px] sm:leading-[80px] text-xl font-bold text-white">
               Hello, <br />
               what is your cherry republic mood today?
             </p>
