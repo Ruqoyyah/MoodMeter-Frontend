@@ -78,7 +78,7 @@ export default function Home() {
             className={`p-5 rounded-xl relative z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040]`}
           >
             {/* Header Text */}
-            <p className="font-zubajda sm:text-[42px] text-xl font-bold text-white">
+            <p className="font-zubajda sm:text-[62px] text-xl sm:leading-[80px] font-bold text-white">
               Hello, <br />
               what is your cherry republic mood today?
             </p>
@@ -169,7 +169,7 @@ export default function Home() {
                           }`}
                           onClick={() => {
                             setSelectedScale(i + 1);
-                            setShowTextBox(true); // Show the text box after selecting scale
+                            // setShowTextBox(true); // Show the text box after selecting scale
                           }}
                         >
                           {i + 1}
