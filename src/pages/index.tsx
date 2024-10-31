@@ -22,24 +22,6 @@ export default function Home() {
     const [ip, setIp] = useState<string>("");
 
     const router = useRouter();
-    const fetchIp = async () => {
-      axios
-        .get("https://ipapi.co/json/")
-        .then((response) => {
-          console.log(response);
-          setIp(response.data.ip);
-        })
-        .catch(() => {
-          // TODO: loader status: setIsGettingLocation(false);
-          console.log(
-            "the geolocation service is not supported in your browser"
-          );
-        });
-    };
-
-    useEffect(() => {
-      fetchIp();
-    }, []);
 
     const moodContent: Record<Mood, { question: string; scale: number }> = {
       ANXIOUS: { question: "How anxious are you?", scale: 10 },
