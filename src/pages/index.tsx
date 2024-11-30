@@ -19,6 +19,7 @@ export default function Home() {
     const [showScale, setShowScale] = useState<boolean>(false);
     const [showTextBox, setShowTextBox] = useState<boolean>(false);
     const [inputText, setInputText] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
     const [ip, setIp] = useState<string>("");
 
     const router = useRouter();
@@ -57,14 +58,26 @@ export default function Home() {
 
     // Handle the final submission of the text box
     const handleFinalSubmit = async () => {
-      router.push("/success");
+      setLoading(true);
+      if (selectedMood === null || selectedScale === null) {
+        toast.error("Kindly select a mood and intensity");
+        return;
+      }
       try {
-        await axios.post("http://localhost:8081/api/mood/create-mood", {
-          rating: selectedMood,
-          intensity: selectedScale,
-        });
+        setLoading(false);
+        const res = await axios.post(
+          "http://localhost:8081/api/mood/create-mood",
+          {
+            rating: selectedMood,
+            intensity: selectedScale,
+          }
+        );
+        if (res.data.statusCode == "OK") {
+          router.push("/success");
+        }
       } catch (error) {
         console.log(error);
+        setLoading(false);
       }
     };
 
@@ -202,6 +215,7 @@ export default function Home() {
               <button
                 className="mt-4 bg-cyan-300 text-white px-6 py-2 rounded-lg hover:bg-purple-100 focus:outline-none"
                 onClick={handleFinalSubmit}
+                disabled={loading}
               >
                 Enter
               </button>
