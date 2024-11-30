@@ -53,19 +53,19 @@ export default function Home() {
     const handleMoodSelection = async (mood: Mood) => {
       setSelectedMood(mood);
       setShowScale(true);
-
-      // try {
-      //   await axios.post("http://localhost:8081/api/mood/create-mood", {
-      //     rating: mood,
-      //   });
-      // } catch (error) {
-      //   console.log(error);
-      // }
     };
 
     // Handle the final submission of the text box
-    const handleFinalSubmit = () => {
+    const handleFinalSubmit = async () => {
       router.push("/success");
+      try {
+        await axios.post("http://localhost:8081/api/mood/create-mood", {
+          rating: selectedMood,
+          intensity: selectedScale,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     return (
