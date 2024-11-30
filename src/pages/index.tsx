@@ -63,7 +63,7 @@ export default function Home() {
         return;
       }
       if (selectedScale === null) {
-        toast.error(`Kindly specify how ${selectedScale} you are`);
+        toast.error(`Kindly specify how ${selectedMood.toLowerCase()} you are`);
         return;
       }
       setLoading(true);
