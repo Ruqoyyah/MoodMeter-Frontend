@@ -58,7 +58,6 @@ export default function Home() {
 
     // Handle the final submission of the text box
     const handleFinalSubmit = async () => {
-      setLoading(true);
       if (selectedMood === null) {
         toast.error("Kindly select a mood");
         return;
@@ -67,6 +66,7 @@ export default function Home() {
         toast.error(`Kindly specify how ${selectedScale} you are`);
         return;
       }
+      setLoading(true);
       try {
         setLoading(false);
         const res = await axios.post(
