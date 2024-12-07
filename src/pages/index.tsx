@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Happy from "../../public/gifs/happy.gif";
-import Sad from "../../public/gifs/sad.gif";
-import Angry from "../../public/gifs/angry.gif";
-import Relaxed from "../../public/gifs/relaxed.gif";
-import Anxious from "../../public/gifs/anxious.gif";
+import Happy from "../../public/icons/straight.png";
+import Sad from "../../public/icons/smile.png";
+import Angry from "../../public/icons/very smile.png";
+import Relaxed from "../../public/icons/sad.png";
+import Anxious from "../../public/icons/very sad.png";
 
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -56,22 +56,26 @@ export default function Home() {
         >
           {/* Content */}
           <div
-            className={`p-5 rounded-xl relative z-10 flex flex-col gap-8 items-center justify-center bg-[#00000040]`}
+            className={`p-5 rounded-xl relative z-10 flex flex-col gap-8 items-center justify-center bg-white`}
           >
             {/* Header Text */}
-            <p className="font-zubajda sm:text-[62px] text-xl sm:leading-[80px] font-bold text-white">
-              Hello, <br />
-              what is your cherry republic mood today?
-            </p>
+            <div className="flex flex-col ">
+              <p className="font-zubajda sm:text-[16px] text-sm font-bold text-red-600 text-center">
+                Hello IT Department !
+              </p>
+              <p className="font-zubajda sm:text-[62px] text-xl sm:leading-[80px] font-bold text-red-600 text-center">
+                what is your cherry republic mood today?
+              </p>
+            </div>
 
             {/* Icons with embedded buttons */}
-            <div className="flex flex-col items-center space-y-8">
+            <div className="">
               <div className="flex flex-wrap justify-center flex-row gap-8">
                 {/* Anxious Button */}
                 <div className="flex flex-col items-center ">
                   <button
                     onClick={() => handleMoodSelection("ANXIOUS")}
-                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
+                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-red-600 rounded-xl px-8 py-2"
                   >
                     <Image
                       src={Anxious}
@@ -79,14 +83,14 @@ export default function Home() {
                       className="w-32 h-32"
                     />
                   </button>
-                  <span className="mt-2 text-white font-semibold">Anxious</span>
+                  {/* <span className="mt-2 text-white font-semibold">Anxious</span> */}
                 </div>
 
                 {/* Relaxed Button */}
                 <div className="flex flex-col items-center ">
                   <button
                     onClick={() => handleMoodSelection("RELAXED")}
-                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
+                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-red-600 rounded-xl px-8 py-2"
                   >
                     <Image
                       src={Relaxed}
@@ -94,72 +98,42 @@ export default function Home() {
                       className="w-32 h-32"
                     />
                   </button>
-                  <span className="mt-2 text-white font-semibold">Relaxed</span>
+                  {/* <span className="mt-2 text-white font-semibold">Relaxed</span> */}
                 </div>
 
                 {/* Happy Button */}
                 <div className="flex flex-col items-center ">
                   <button
                     onClick={() => handleMoodSelection("HAPPY")}
-                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
+                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-red-600 rounded-xl px-8 py-2"
                   >
                     <Image src={Happy} alt="Happy Icon" className="w-32 h-32" />
                   </button>
-                  <span className="mt-2 text-white font-semibold">Happy</span>
+                  {/* <span className="mt-2 text-white font-semibold">Happy</span> */}
                 </div>
 
                 {/* Sad Button */}
                 <div className="flex flex-col items-center ">
                   <button
                     onClick={() => handleMoodSelection("SAD")}
-                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
+                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-red-600 rounded-xl px-8 py-2"
                   >
                     <Image src={Sad} alt="Sad Icon" className="w-32 h-32" />
                   </button>
-                  <span className="mt-2 text-white font-semibold">Sad</span>
+                  {/* <span className="mt-2 text-white font-semibold">Sad</span> */}
                 </div>
 
                 {/* Angry Button */}
                 <div className="flex flex-col items-center ">
                   <button
                     onClick={() => handleMoodSelection("ANGRY")}
-                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-[#ffffff80] rounded-full p-2"
+                    className="ease-in-out duration-700 hover:bg-white focus:outline-none bg-red-600 rounded-xl px-8 py-2"
                   >
                     <Image src={Angry} alt="Angry Icon" className="w-32 h-32" />
                   </button>
-                  <span className="mt-2 text-white font-semibold">Angry</span>
+                  {/* <span className="mt-2 text-white font-semibold">Angry</span> */}
                 </div>
               </div>
-
-              {/* Mood Scale Section */}
-              {/* {showScale && selectedMood && (
-                <div className="flex flex-col items-center space-y-4 mt-8">
-                  <h2 className="text-xl font-bold text-white">
-                    {moodContent[selectedMood].question}
-                  </h2>
-                  <div className="flex flex-wrap justify-center gap-5">
-                    {Array.from(
-                      { length: moodContent[selectedMood].scale },
-                      (_, i) => (
-                        <button
-                          key={i}
-                          className={`w-8 h-8 text-white border border-white rounded-full ${
-                            selectedScale === i + 1
-                              ? "bg-blue-500"
-                              : "bg-transparent"
-                          }`}
-                          onClick={() => {
-                            setSelectedScale(i + 1);
-                            // setShowTextBox(true); // Show the text box after selecting scale
-                          }}
-                        >
-                          {i + 1}
-                        </button>
-                      )
-                    )}
-                  </div>
-                </div>
-              )} */}
 
               {/* Input section for paragraph text */}
               {showTextBox && (
