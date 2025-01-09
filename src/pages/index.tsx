@@ -37,7 +37,7 @@ export default function Home() {
       setShowScale(true);
 
       try {
-        await axios.post("http://localhost:8081/api/mood/create-mood", {
+        await axios.post("http://localhost:8082/api/mood/create-mood", {
           rating: mood,
         });
         router.push("/success");
